@@ -6,3 +6,6 @@
 /backend/.gitattributes
 /backend/mvnw.cmd
 /backend/.mvn
+
+#   Backend
+/frontend/node_modules
