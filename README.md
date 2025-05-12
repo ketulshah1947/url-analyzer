@@ -27,7 +27,7 @@ Use Docker Compose to build and start the backend:
 ```bash
 docker-compose up --build
 ```
-- API Base URL: http://localhost:8080/api/analyze
+- API Base URL: http://localhost:8080/api/v1/analyze
 - Swagger UI: http://localhost:8080/swagger-ui.html
 - Health Check: http://localhost:8080/actuator/health
 
