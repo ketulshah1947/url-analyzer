@@ -94,6 +94,7 @@ docker-compose run backend-tests
 
 ### 📝 Future Enhancements
 
+* Integration tests for controller
 * Redis caching for repeat requests
 * Async task queue for non-blocking fetch
 * Authentication for protected usage

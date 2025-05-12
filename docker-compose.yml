@@ -19,6 +19,8 @@ services:
     volumes:
       - ./backend:/app
     command: mvn clean verify
+    depends_on:
+      - backend
 
   backend-fix-lints:
     image: maven:3.9.6-eclipse-temurin-21
