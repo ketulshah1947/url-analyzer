@@ -17,7 +17,13 @@ const App: React.FC = () => {
             const res = await analyzeUrl(inputUrl);
             setResult(res);
         } catch (err: any) {
-            setError(err.response.data || err.message || "Something went wrong");
+            if (err.response?.status === 400) {
+                setError(err.response.data || err.message || "Bad request. Please check the URL and try again.");
+            } else if (err.code === 'ECONNABORTED') {
+                setError("Request timed out. Please try again.");
+            } else {
+                setError(err.message || "Something went wrong");
+            }
         } finally {
             setLoading(false);
         }
