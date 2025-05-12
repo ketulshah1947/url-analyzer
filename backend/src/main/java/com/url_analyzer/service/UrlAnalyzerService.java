@@ -8,6 +8,7 @@ import com.url_analyzer.model.UrlAnalysisResult;
 import com.url_analyzer.networking.DocumentFetcher;
 import com.url_analyzer.utils.DocumentParserUtils;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Map;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class UrlAnalyzerService {
 
       return new UrlAnalysisResult(imageStats, links.getInternalLinks(), links.getExternalLinks());
 
-    } catch (IllegalArgumentException e) {
+    } catch (IllegalArgumentException | UnknownHostException e) {
       throw new IllegalArgumentException("Invalid URL: " + urlStr);
     } catch (Exception e) {
       throw new RuntimeException("Failed to parse URL: " + urlStr, e);

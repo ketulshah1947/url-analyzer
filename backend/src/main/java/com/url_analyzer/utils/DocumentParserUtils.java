@@ -1,5 +1,6 @@
 package com.url_analyzer.utils;
 
+import com.url_analyzer.Constants;
 import com.url_analyzer.model.ImageStats;
 import com.url_analyzer.model.Links;
 import java.net.MalformedURLException;
@@ -40,6 +41,7 @@ public class DocumentParserUtils {
       if (!src.isEmpty()) {
         String ext =
             src.contains(".") ? src.substring(src.lastIndexOf(".")).split("\\?")[0] : "unknown";
+        ext = Constants.IMAGE_EXTENSIONS.contains(ext) ? ext : "unknown";
         imageStats.putIfAbsent(ext, new ImageStats(0, 0));
         imageStats.get(ext).incrementCount();
       }

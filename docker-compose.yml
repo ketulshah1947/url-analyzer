@@ -12,6 +12,8 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     restart: unless-stopped
+    networks:
+      - analyzer-net
 
   backend-tests:
     image: maven:3.9.6-eclipse-temurin-21
@@ -19,6 +21,8 @@ services:
     volumes:
       - ./backend:/app
     command: mvn clean verify
+    networks:
+      - analyzer-net
     depends_on:
       - backend
 
@@ -28,3 +32,38 @@ services:
     volumes:
       - ./backend:/app
     command: mvn spotless:apply
+    networks:
+      - analyzer-net
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: url-analyzer-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - analyzer-net
+
+  frontend-tests:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: npm ci && npm run test
+    networks:
+      - analyzer-net
+
+  frontend-fix-lints:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: npm ci && npm run lint:fix
+    networks:
+      - analyzer-net
+
+networks:
+  analyzer-net:
+    driver: bridge
