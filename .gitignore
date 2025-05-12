@@ -1,0 +1,8 @@
+#   Global
+.idea
+
+#   Backend
+/backend/mvnw
+/backend/.gitattributes
+/backend/mvnw.cmd
+/backend/.mvn

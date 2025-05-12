@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: url-analyzer-backend
+    container_name: url-analyzer-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    restart: unless-stopped
+
+  backend-tests:
+    image: maven:3.9.6-eclipse-temurin-21
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: mvn clean verify
+
+  backend-fix-lints:
+    image: maven:3.9.6-eclipse-temurin-21
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: mvn spotless:apply
